@@ -35,3 +35,27 @@ jobs:
         
     - name: Compile
       run: mvn -B package --file pom.xml
+
+  # 2a tarea - compilar
+  compilar-en-windows:
+
+    # se ejecutar en un Ubuntu
+    runs-on: windows-latest
+
+    # pasos
+    steps:
+    
+    # cada paso es una acción
+    - name: Descarga el proyecto de Github
+      uses: actions/checkout@v3
+      
+    - name: Configura JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+        
+    - name: Compile
+      run: mvn -B package --file pom.xml
+
