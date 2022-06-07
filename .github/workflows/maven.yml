@@ -1,0 +1,37 @@
+# Nombre
+name: Compila Java con Maven
+
+# Cuando se ejecuta el pieline
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+  
+
+# Tareas
+jobs:
+
+  # 1a tarea - compilar
+  compilar:
+
+    # se ejecutar en un Ubuntu
+    runs-on: ubuntu-latest
+
+    # pasos
+    steps:
+    
+    # cada paso es una acción
+    - name: Descarga el proyecto de Github
+      uses: actions/checkout@v3
+      
+    - name: Configura JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+        
+    - name: Compile
+      run: mvn -B package --file pom.xml
